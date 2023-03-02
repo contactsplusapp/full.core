@@ -1,10 +1,14 @@
-(defproject fullcontact/full.core "1.1.2-SNAPSHOT"
+(defproject fullcontact/full.core "1.1.3"
   :description "FullContact's core Clojure(Script) library - logging, configuration and sugar."
-  :url "https://github.com/fullcontact/full.core"
+  :url "https://github.com/contactsplusapp/full.core"
   :license {:name "Eclipse Public License - v 1.0"
             :url "http://www.eclipse.org/legal/epl-v10.html"
             :distribution :repo}
-  :deploy-repositories [["releases" {:url "https://clojars.org/repo/" :creds :gpg}]]
+  :repositories [["fullcontact" {:url "https://contactsplus.jfrog.io/artifactory/repo"}]
+                 ["releases" {:url "https://contactsplus.jfrog.io/artifactory/libs-release-local"}]
+                 ["snapshots" {:url "https://contactsplus.jfrog.io/artifactory/libs-snapshot-local"}]]
+  :deploy-repositories [["releases" {:url "https://contactsplus.jfrog.io/artifactory/libs-release-local" :sign-releases false}]
+                        ["snapshots" {:url "https://contactsplus.jfrog.io/artifactory/libs-snapshot-local" :sign-releases false}]]
   :managed-dependencies [[org.clojure/tools.namespace "0.3.0"]]
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.clojure/clojurescript "1.10.597"]
@@ -21,7 +25,7 @@
                  [commons-codec/commons-codec "1.10"]]
   :aliases {"at" ["test-refresh"]
             "ats" ["doo" "phantom"]}
-  :aot :all
+  :aot [clojure.tools.logging.impl]
   :cljsbuild {:builds {:test {:source-paths ["src" "test"]
                               :compiler {:output-to "target/test.js"
                                          :main 'full.core.test-runner
